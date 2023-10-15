@@ -19,7 +19,8 @@ contract PayPer is Ownable {
         string name;
         string freeContent;
         string encryptedUrl;
-        uint256 rating;
+        uint256 totalRating;
+        uint256 amountOfRatings;
         uint256 price;
         uint256 totalPaymentReceived;
         uint256 date;
@@ -63,7 +64,8 @@ contract PayPer is Ownable {
             name: name,
             freeContent: freeContent,
             encryptedUrl: url,
-            rating: 0,
+            amountOfRatings: 0,
+            totalRating: 0,
             price: price,
             totalPaymentReceived: 0,
             date: block.timestamp,
@@ -103,4 +105,27 @@ contract PayPer is Ownable {
 
         journalist.transfer(msg.value);
     }
+
+    function rateArticle(uint256 articleId, uint256 rating) external {
+        require(articleId <= currentArticleId, "article does not exist");
+        require(rating <= 5, "cannot rate higher than 5");
+        Article memory article = articles[articleId];
+
+        uint256 totalRatingOfArticle = article.totalRating;
+        uint256 amountOfRatings = article.amountOfRatings;
+
+        totalRatingOfArticle += rating;
+        amountOfRatings += 1;
+
+        article.totalRating = totalRatingOfArticle;
+        article.amountOfRatings = amountOfRatings;
+
+        articles[articleId] = article;
+    }
+
+    function tipJournalist(address journalist, string memory message) external payable {
+        // here, i'd like to add a message via push protocol maybe.
+        journalist.transfer(msg.value);
+    }
+
 }
