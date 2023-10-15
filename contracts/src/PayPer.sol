@@ -86,6 +86,11 @@ contract PayPer is Ownable {
         journalists[journalistAddress] = journalist;
     }
 
+    /**
+    Here an edition is what I thought of as a new version of the newspaper
+    each edition can contain a list of articles that are going to be displayed
+    i think we can make a dao that decides on these articles.
+     */
     function createEdition(uint256[] memory articlesOfEdition) external onlyOwner {
         currentEditionId += 1;
 
@@ -107,6 +112,14 @@ contract PayPer is Ownable {
         journalist.transfer(msg.value);
     }
 
+    /**
+    for the ratings I have used 2 params
+    totalRating and amountOfRatings
+    totalRating is the aggregate total of all rating received. if 10 people have rated 5, the total rating is goign to be 50
+    amountOfRating is how many people have rated? if 10 people have rated an article 5, amountOfRating is going to be 10.
+    I didn't want to directly divide, I was afraid of division errors
+    if you think its unnecessary to do this, you can remove it
+     */
     function rateArticle(uint256 articleId, uint256 rating) external {
         require(articleId <= currentArticleId, "article does not exist");
         require(rating <= 5, "cannot rate higher than 5");
