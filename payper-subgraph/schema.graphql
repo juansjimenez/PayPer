@@ -1,0 +1,6 @@
+type ExampleEntity @entity {
+  id: Bytes!
+  count: BigInt!
+  articleId: BigInt! # uint256
+  purchaser: Bytes! # address
+}

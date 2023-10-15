@@ -1,0 +1,45 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: mumbai
+    source:
+      address: "0x818c30622A2B4c58eC1181b85bA80D62Ef249D13"
+      abi: Contract
+      startBlock: 41241712
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ArticlePurchased
+        - ArticleRated
+        - CreatedEdition
+        - CreatedJournalist
+        - JounralistTipped
+        - JournalistRated
+        - OwnershipTransferred
+        - PostedArticle
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: ArticlePurchased(uint256,address,uint256)
+          handler: handleArticlePurchased
+        - event: ArticleRated(uint256,uint256,uint256,uint256)
+          handler: handleArticleRated
+        - event: CreatedEdition(uint256,uint256,uint256[])
+          handler: handleCreatedEdition
+        - event: CreatedJournalist(string,string,address)
+          handler: handleCreatedJournalist
+        - event: JounralistTipped(address,uint256,string)
+          handler: handleJounralistTipped
+        - event: JournalistRated(address,uint256,uint256,uint256)
+          handler: handleJournalistRated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PostedArticle(uint256,string,address,string,string,uint256,uint256,uint256)
+          handler: handlePostedArticle
+      file: ./src/contract.ts
