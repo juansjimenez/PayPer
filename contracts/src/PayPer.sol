@@ -31,7 +31,8 @@ contract PayPer is Ownable {
         address id;
         string name;
         string description;
-        uint256 rating;
+        uint256 totalRating;
+        uint256 amountOfRatings;
     }
 
     struct Edition {
@@ -80,7 +81,7 @@ contract PayPer is Ownable {
         onlyOwner
     {
         Journalist memory journalist =
-            Journalist({id: journalistAddress, name: name, description: description, rating: 0});
+            Journalist({id: journalistAddress, name: name, description: description, totalRating: 0, amountOfRatings: 0});
 
         journalists[journalistAddress] = journalist;
     }
@@ -125,7 +126,22 @@ contract PayPer is Ownable {
 
     function tipJournalist(address journalist, string memory message) external payable {
         // here, i'd like to add a message via push protocol maybe.
-        journalist.transfer(msg.value);
+        payable(journalist).transfer(msg.value);
     }
 
+     function rateJournalist(address journalistAddress, uint256 rating) external {
+        require(rating <= 5, "cannot rate higher than 5");
+        Journalist memory journalist = journalists[journalistAddress];
+
+        uint256 totalRating = journalist.totalRating;
+        uint256 amountOfRatings = journalist.amountOfRatings;
+
+        totalRating += rating;
+        amountOfRatings += 1;
+
+        journalist.totalRating = totalRating;
+        journalist.amountOfRatings = amountOfRatings;
+
+        journalists[journalistAddress] = journalist;
+    }
 }
