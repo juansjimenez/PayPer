@@ -5,7 +5,7 @@ import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 
 
 export function createEdition(event: CreatedEdition): Edition {
-  let id = event.params.id.toHexString()
+  let id = event.params.id.toString()
   let edition = Edition.load(id);
 
   if (edition == null) {

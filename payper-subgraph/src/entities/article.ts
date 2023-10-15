@@ -5,7 +5,7 @@ import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 
 
 export function createArticle(event: PostedArticle): Article {
-  let id = event.params.id.toHexString()
+  let id = event.params.id.toString()
   let article = Article.load(id);
 
   if (article == null) {
