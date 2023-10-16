@@ -15,7 +15,7 @@ interface UseCreateJournalistParams {
 }
 
 /**
-* Buy an article
+* Create a new journalist
 */
 const useCreateJournalist = ({
   name,

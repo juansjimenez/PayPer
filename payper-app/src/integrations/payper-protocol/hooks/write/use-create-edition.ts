@@ -13,7 +13,7 @@ interface UseCreateEditionParams {
 }
 
 /**
-* Buy an article
+* Create an edition for a group of articles
 */
 const useCreateEdition = ({
   articles,

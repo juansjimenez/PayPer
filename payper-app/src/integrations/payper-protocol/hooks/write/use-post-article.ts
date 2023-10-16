@@ -17,7 +17,7 @@ interface UsePostArticleParams {
 }
 
 /**
-* Buy an article
+* Create a new article
 */
 const usePostArticle = ({
   name,
