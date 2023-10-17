@@ -1,4 +1,0 @@
-{
-  "extend": "./node_modules/@graphprotocol/graph-ts/tsconfig.json",
-  "include": ["./node_modules/assemblyscript/std/assembly/**/*.ts", "**/*.ts"]
-}

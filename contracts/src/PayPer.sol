@@ -100,7 +100,6 @@ contract PayPer is Ownable {
 
     function createJournalist(string memory name, string memory description, address journalistAddress)
         external
-        onlyOwner
     {
         Journalist memory journalist =
             Journalist({id: journalistAddress, name: name, description: description, totalRating: 0, amountOfRatings: 0});
@@ -115,7 +114,7 @@ contract PayPer is Ownable {
     each edition can contain a list of articles that are going to be displayed
     i think we can make a dao that decides on these articles.
      */
-    function createEdition(uint256[] memory articlesOfEdition) external onlyOwner {
+    function createEdition(uint256[] memory articlesOfEdition) external {
         currentEditionId += 1;
 
         Edition memory edition =
