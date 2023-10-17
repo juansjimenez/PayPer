@@ -1,0 +1,29 @@
+type Article @entity {
+  id: String!
+  name: String!
+  freeContent: String!
+  journalist: Bytes!
+  encryptedUrl: String!
+  totalRating: BigInt!
+  amountOfRatings: BigInt!
+  price: BigInt!
+  totalPaymentReceived: BigInt!
+  date: BigInt!
+  newsType: BigInt!
+}
+
+type Journalist @entity {
+  id: String!
+  name: String!
+  description: String!
+  totalRating: BigInt!
+  amountOfRatings: BigInt!
+  totalTips: BigInt!
+  allArticles: [BigInt!]!
+}
+
+type Edition @entity {
+  id: String!
+  date: BigInt!
+  articlesOfEdition: [BigInt!]!
+}
