@@ -25,7 +25,7 @@ const useGetArticle = ({
   });
 
   if (!articleData) {
-    throw new Error('Could not fetch article data');
+    return {} as ArticleData;
   }
 
   const article: ArticleData = {
