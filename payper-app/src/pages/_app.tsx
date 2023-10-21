@@ -17,11 +17,15 @@ import {
 } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+// import { Web3AuthConnector } from "@web3auth/web3auth-wagmi-connector";
+// import { Web3Auth } from "@web3auth/modal";
+// import { CHAIN_NAMESPACES } from '@web3auth/base';
 
 const inter = Inter({ subsets: ['latin'] })
 
 const {
-  publicClient, webSocketPublicClient,
+  chains, publicClient, webSocketPublicClient,
 } = configureChains(
   [
     mainnet,
@@ -37,21 +41,43 @@ const {
   ],
 );
 
+// const web3AuthInstance = new Web3Auth({
+//   clientId: "BIB_W2EEUNforW6NFZlk0zrkx-NGgl5CH8k8jTHwBWr2AjD324_1LzIvyZQ_NyUl1CYVsOL4XBBpLBwlB9ecEEo",
+//   chainConfig: {
+//     chainNamespace: CHAIN_NAMESPACES.EIP155,
+//     chainId: "0x" + chains[0].id.toString(16),
+//     rpcTarget: polygonMumbai.rpcUrls.default.http[0], // This is the public RPC we have added, please pass on your own endpoint while creating an app
+//     displayName: chains[0].name,
+//     tickerName: chains[0].nativeCurrency?.name,
+//     ticker: chains[0].nativeCurrency?.symbol,
+//     blockExplorer: polygonMumbai.blockExplorers.default.url,
+//   },
+//   web3AuthNetwork: "sapphire_mainnet",
+// });
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  publicClient,
-  webSocketPublicClient,
-});
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID ?? '';
+
+const wagmiConfig = createConfig(
+  getDefaultConfig({
+    alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_KEY ?? 'dummy-key-eth',
+    walletConnectProjectId: projectId,
+    appName: 'PayPer',
+    chains,
+    publicClient,
+    webSocketPublicClient,
+  })
+);
 
 export default function MyApp({
   Component, pageProps,
 }: AppProps): JSX.Element {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <div className={inter.className}>
-        <Component {...pageProps} />
-      </div>
+      <ConnectKitProvider>
+        <div className={inter.className}>
+          <Component {...pageProps} />
+        </div>
+      </ConnectKitProvider>
     </WagmiConfig>
   );
 }

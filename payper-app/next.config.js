@@ -7,6 +7,11 @@ const nextConfig = {
                 hostname: 'next-blog-wordpress.vercel.app',
                 port: '',
             },
+            {
+                protocol: 'https',
+                hostname: '*',
+                port: '',
+            }
         ],
     },
 }

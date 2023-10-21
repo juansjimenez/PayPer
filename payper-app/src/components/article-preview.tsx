@@ -22,7 +22,7 @@ export default function ArticlePreview({
   journalist,
 }: ArticlePreviewProps) {
 
-  const readableDate = new Date(Number(date)).toLocaleDateString();
+  const readableDate = new Date(Number(date)).toISOString();
 
   return (
     <div>
