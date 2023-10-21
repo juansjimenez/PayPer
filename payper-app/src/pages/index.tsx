@@ -7,6 +7,8 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useEffect, useState } from 'react'
 import { ArticleData } from '@/types'
 import { ConnectKitButton } from 'connectkit';
+import { Button } from "@/components/ui/button"
+
 
 export default function Index({ preview }: any) {
   const [articles, setArticles] = useState<ArticleData[]>();
@@ -63,7 +65,10 @@ export default function Index({ preview }: any) {
           <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
             PayPer.
           </h1>
-          <ConnectKitButton />
+          <div className="flex md:justify-between space-x-10">
+            <Button>+ Create Article</Button>
+            <ConnectKitButton />
+          </div>
         </section>
         {heroPost && (
           <HeroPost
