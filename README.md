@@ -1,3 +1,2 @@
 # PayPer
-ETH Global Online Hackathon - PayPer
-Showcase: https://ethglobal.com/showcase/payper-voj60
+Showcase and demo video: https://ethglobal.com/showcase/payper-voj60
